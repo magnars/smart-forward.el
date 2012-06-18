@@ -15,6 +15,15 @@ With point at the start of the quotes,
  * `smart-up` would go to the `{`
  * `smart-down` would go to the `}`
 
+With point at the start of `function`,
+
+ * `smart-forward` would go to the end of `function`, then to the `}`
+
+With point at the start of `{`,
+
+ * `smart-forward` would go to the `}`
+ * `smart-backward` would go to the start of `function`
+
 I use M-up/down/left/right arrows for this.
 
 ## Installation
