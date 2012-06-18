@@ -17,6 +17,17 @@ With point at the start of the quotes,
 
 I use M-up/down/left/right arrows for this.
 
+## Installation
+
+Start by installing
+[expand-region](https://github.com/magnars/expand-region.el).
+
+    (require 'smart-forward)
+    (global-set-key (kbd "M-<up>") 'smart-up)
+    (global-set-key (kbd "M-<down>") 'smart-down)
+    (global-set-key (kbd "M-<left>") 'smart-backward)
+    (global-set-key (kbd "M-<right>") 'smart-forward)
+
 ## Contribute
 
 smart-forward is a thin wrapper around expand-region. Most fixes to
