@@ -3,7 +3,8 @@
 ;; Copyright (C) 2011 Magnar Sveen
 
 ;; Author: Magnar Sveen <magnars@gmail.com>
-;; Keywords: marking region
+;; Keywords: navigation
+;; Package-Requires: ((expand-region "0.8.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -63,15 +64,18 @@
 (defun smart--er-try-list-without-inside ()
   (remove-if 'smart--name-contains-inside-p er/try-expand-list))
 
-(defun smart--er-try-list-without-word ()
-  (remove 'er/mark-word er/try-expand-list))
+(defun smart--only-letters-in-region ()
+  (string-match-p "^\\(\\s_\\|\\sw\\)+$" (buffer-substring (region-beginning)
+                                                           (region-end))))
+
+;; er mange expansions som matcher word ... method-call, for eksempel
+;; må heller expande videre dersom det som er selecta matcher en word-regexp
 
 (defun smart-forward ()
   (interactive)
   (when (= (point) (point-max))
     (error "End of buffer"))
   (let ((expand-region-fast-keys-enabled nil)
-        (er/try-expand-list (smart--er-try-list-without-word))
         (_mark (set-marker (make-marker) (mark)))
         (mark-ring mark-ring)
         (mark-active mark-active)
@@ -79,7 +83,8 @@
     (deactivate-mark)
     (flet ((message (&rest args) nil))
       (er/expand-region 1)
-      (while (<= (mark) p)
+      (while (or (<= (mark) p)
+                 (smart--only-letters-in-region))
         (er/expand-region 1)))
     (exchange-point-and-mark)
     (set-marker (mark-marker) _mark)))
@@ -89,7 +94,6 @@
   (when (= (point) (point-min))
     (error "Beginning of buffer"))
   (let ((expand-region-fast-keys-enabled nil)
-        (er/try-expand-list (smart--er-try-list-without-word))
         (_mark (set-marker (make-marker) (mark)))
         (mark-ring mark-ring)
         (mark-active mark-active)
@@ -97,7 +101,8 @@
     (deactivate-mark)
     (flet ((message (&rest args) nil))
       (er/expand-region 1)
-      (while (>= (point) p)
+      (while (or (>= (point) p)
+                 (smart--only-letters-in-region))
         (er/expand-region 1)))
     (deactivate-mark)
     (set-marker (mark-marker) _mark)))
