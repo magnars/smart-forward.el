@@ -4,6 +4,7 @@
 
 ;; Author: Magnar Sveen <magnars@gmail.com>
 ;; Keywords: navigation
+;; Version: 1.0.0
 ;; Package-Requires: ((expand-region "0.8.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
