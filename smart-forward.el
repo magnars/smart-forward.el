@@ -112,9 +112,7 @@
   (interactive)
   (when (= (point) (point-max))
     (error "End of buffer"))
-  (if (= (line-number-at-pos) (save-excursion
-                                (goto-char (point-max))
-                                (line-number-at-pos)))
+  (if (= (line-number-at-pos) (line-number-at-pos (point-max)))
       (goto-char (point-max))
     (let ((expand-region-fast-keys-enabled nil)
           (_mark (set-marker (make-marker) (mark)))
@@ -125,9 +123,7 @@
       (deactivate-mark)
       (flet ((message (&rest args) nil))
         (er/expand-region 1)
-        (while (<= (save-excursion
-                     (exchange-point-and-mark)
-                     (line-number-at-pos)) l)
+        (while (<= (line-number-at-pos (mark)) l)
           (er/expand-region 1)))
       (exchange-point-and-mark)
       (deactivate-mark)
@@ -137,9 +133,7 @@
   (interactive)
   (when (= (point) (point-min))
     (error "Beginning of buffer"))
-  (if (= (line-number-at-pos) (save-excursion
-                                (goto-char (point-min))
-                                (line-number-at-pos)))
+  (if (= (line-number-at-pos) (line-number-at-pos (point-min)))
       (goto-char (point-min))
     (let ((expand-region-fast-keys-enabled nil)
           (_mark (set-marker (make-marker) (mark)))
