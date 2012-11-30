@@ -17,7 +17,7 @@ With point at the start of the quotes,
 
 With point at the start of `function`,
 
- * `smart-forward` would go to the end of `function`, then to the `}`
+ * `smart-forward` would go to the `}`
 
 With point at the start of `{`,
 
