@@ -66,8 +66,8 @@
   (remove-if 'smart--name-contains-inside-p er/try-expand-list))
 
 (defun smart--only-letters-in-region ()
-  (string-match-p "^\\(\\s_\\|\\sw\\)+$" (buffer-substring (region-beginning)
-                                                           (region-end))))
+  (string-match-p "^\\s'*\\(\\s_\\|\\sw\\)+$" (buffer-substring (region-beginning)
+                                                                (region-end))))
 
 ;; er mange expansions som matcher word ... method-call, for eksempel
 ;; må heller expande videre dersom det som er selecta matcher en word-regexp
