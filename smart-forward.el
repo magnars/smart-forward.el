@@ -1,4 +1,4 @@
-;;; smart-forward.el --- Semantic navigatioin
+;;; smart-forward.el --- Semantic navigation
 
 ;; Copyright (C) 2011 Magnar Sveen
 
